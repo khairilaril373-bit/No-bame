@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seilik - AI Cerdas</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Memuat Lucide Icons untuk ikon modern -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Memuat Marked.js untuk merender format Markdown dari respons AI -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Memuat DOMPurify untuk keamanan sanitasi HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            bg: '#0B0F19',
+                            surface: '#111827',
+                            card: '#1E293B',
+                            border: '#334155',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Variabel Tema Warna Mata LED Eilik */
+        :root {
+            --eye-color: #22d3ee;
+            --eye-glow: rgba(34, 211, 238, 0.65);
+            --blush-color: rgba(251, 113, 133, 0.42);
+        }
+
+        /* Kustomisasi Scrollbar untuk tema gelap */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* =========================================================
+           STYLING LAYAR WAJAH ROBOT DIGITAL GAYA EILIK
+           ========================================================= */
+        .eilik-visor {
+            background: radial-gradient(circle at 50% 18%, #1e293b 0%, #090d16 74%, #04060c 100%);
+            box-shadow:
+                inset 0 2px 12px rgba(255, 255, 255, 0.09),
+                inset 0 -10px 24px rgba(0, 0, 0, 0.88),
+                0 14px 32px -10px rgba(0, 0, 0, 0.8);
+        }
+
+        .eilik-glass-glare {
+            background: linear-gradient(118deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.02) 34%, transparent 58%);
+        }
+
+        .led-eye {
+            background-color: var(--eye-color);
+            box-shadow: 0 0 18px var(--eye-glow), 0 0 36px var(--eye-glow);
+            transition: all 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .led-mouth {
+            background-color: var(--eye-color);
+            box-shadow: 0 0 10px var(--eye-glow);
+            transition: all 0.22s ease;
+        }
+
+        .led-blush {
+            background: radial-gradient(circle, var(--blush-color) 0%, transparent 72%);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        /* Animasi Ekspresi Eilik */
+        @keyframes blinkEye {
+            0%, 92%, 100% { transform: scaleY(1); }
+            96% { transform: scaleY(0.07); }
+        }
+
+        @keyframes thinkPulse {
+            0%, 100% { transform: scale(0.9); opacity: 0.72; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+
+        @keyframes talkBounce {
+            0%, 100% { transform: translateY(0px) scaleY(1); }
+            50% { transform: translateY(-4px) scaleY(0.84); }
+        }
+
+        @keyframes mouthTalk {
+            0%, 100% { transform: scaleY(0.75) scaleX(0.95); }
+            50% { transform: scaleY(1.45) scaleX(1.1); }
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 1;
+                transform: translateY(0px) scale(0.6) rotate(-10deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-48px) scale(1.2) rotate(14deg);
+            }
+        }
+
+        /* =========================================================
+           ANIMASI KHUSUS 8 EKSPRESI EILIK
+           ========================================================= */
+        @keyframes tearDrop {
+            0% {
+                opacity: 0.95;
+                transform: translateY(0px) scale(0.8);
+            }
+            80% {
+                opacity: 0.9;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(38px) scale(1.1);
+            }
+        }
+
+        @keyframes angryShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-3px, 1px) rotate(-1deg); }
+            40% { transform: translate(3px, -1px) rotate(1deg); }
+            60% { transform: translate(-2px, -1px) rotate(-0.8deg); }
+            80% { transform: translate(2px, 1px) rotate(0.8deg); }
+        }
+
+        @keyframes steamRise {
+            0% {
+                opacity: 0;
+                transform: translateY(4px) scale(0.6);
+            }
+            35% {
+                opacity: 0.95;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-34px) scale(1.25);
+            }
+        }
+
+        @keyframes surprisePop {
+            0% { transform: scale(0.65); }
+            55% { transform: scale(1.24); }
+            80% { transform: scale(0.96); }
+            100% { transform: scale(1.12); }
+        }
+
+        @keyframes sleepBreathe {
+            0%, 100% { transform: translateY(2px) scaleY(0.95); }
+            50% { transform: translateY(-3px) scaleY(1.04); }
+        }
+
+        @keyframes floatZzz {
+            0% {
+                opacity: 0;
+                transform: translate(0px, 4px) scale(0.7);
+            }
+            25% {
+                opacity: 0.95;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(16px, -38px) scale(1.25);
+            }
+        }
+
+        @keyframes cloudSulk {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes happyBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .anim-blink {
+            animation: blinkEye 4.4s infinite;
+        }
+
+        .anim-think {
+            animation: thinkPulse 1.05s infinite ease-in-out;
+        }
+
+        .anim-talk {
+            animation: talkBounce 0.34s infinite ease-in-out;
+        }
+
+        .anim-mouth-talk {
+            animation: mouthTalk 0.28s infinite ease-in-out;
+        }
+
+        .anim-angry-shake {
+            animation: angryShake 0.28s infinite linear;
+        }
+
+        .anim-surprise-pop {
+            animation: surprisePop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .anim-sleep-breathe {
+            animation: sleepBreathe 3.2s infinite ease-in-out;
+        }
+
+        .anim-happy-bounce {
+            animation: happyBounce 0.65s infinite ease-in-out;
+        }
+
+        .heart-particle {
+            animation: floatHeart 1s ease-out forwards;
+        }
+
+        .tear-particle {
+            animation: tearDrop 1.25s infinite ease-in;
+        }
+
+        .steam-particle {
+            animation: steamRise 1.15s infinite ease-out;
+        }
+
+        .zzz-particle {
+            animation: floatZzz 2.2s infinite ease-out;
+        }
+
+        .cloud-particle {
+            animation: cloudSulk 1.8s infinite ease-in-out;
+        }
+
+        /* Kelopak mata atas untuk efek Marah / Jengkel / Sedih / Ngambek */
+        .eyelid-top {
+            background-color: #090d16;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Animasi Indikator Mengetik (Typing Indicator) */
+        .typing-dot {
+            animation: typingAnimation 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingAnimation {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Animasi munculnya bubble chat */
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message-appear {
+            animation: fadeInSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Styling khusus untuk elemen Markdown di dalam pesan AI */
+        .prose-ai p {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        .prose-ai p:last-child {
+            margin-bottom: 0;
+        }
+        .prose-ai pre {
+            background-color: #090D16;
+            border: 1px solid #1E293B;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 0.75rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .prose-ai code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.15rem 0.35rem;
+            border-radius: 0.375rem;
+            font-size: 0.85em;
+            color: #93C5FD;
+        }
+        .prose-ai pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #E2E8F0;
+        }
+        .prose-ai ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose-ai ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose-ai li {
+            margin-bottom: 0.25rem;
+        }
+        .prose-ai strong {
+            color: #F8FAFC;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-200 font-sans antialiased h-screen flex flex-col overflow-hidden selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- Header Aplikasi -->
+    <header class="bg-dark-surface/80 backdrop-blur-md border-b border-slate-800/80 px-4 py-3 sm:px-6 flex items-center justify-between z-10 shrink-0 gap-2">
+        <div class="flex items-center gap-3 min-w-0">
+            <!-- Logo AI dengan Gradien -->
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
+                <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+            </div>
+            <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                    <h1 class="font-semibold text-base sm:text-lg text-white tracking-tight truncate">Seilik - AI Cerdas</h1>
+                    <span class="px-2 py-0.5 text-[10px] font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-full shrink-0">Eilik UI</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs text-slate-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="status-label" class="truncate">Siap menemani obrolanmu</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Aksi Header & Pemilih 4 Warna Tema Mata LED -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <button id="toggle-stream-btn" title="Mode Streaming (lebih cepat terlihat) / Non-Streaming" class="px-2.5 py-1.5 text-xs font-medium bg-slate-900/90 text-cyan-300 border border-slate-800 hover:border-cyan-500/40 rounded-xl transition-all flex items-center gap-1 cursor-pointer">
+                <i data-lucide="radio" class="w-3.5 h-3.5"></i>
+                <span id="stream-mode-label" class="hidden sm:inline">Stream</span>
+            </button>
+
+            <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 px-2.5 py-1.5 rounded-xl" title="Pilih Warna Mata LED">
+                <button onclick="setEyeTheme('cyan')" data-theme-btn="cyan" title="Tema Cyan" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-cyan-400 ring-2 ring-white/85 cursor-pointer transition-transform hover:scale-110"></button>
+                <button onclick="setEyeTheme('sakura')" data-theme-btn="sakura" title="Tema Sakura" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-pink-400 opacity-75 cursor-pointer transition-transform hover:scale-110"></button>
+                <button onclick="setEyeTheme('lavender')" data-theme-btn="lavender" title="Tema Lavender" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-violet-400 opacity-75 cursor-pointer transition-transform hover:scale-110"></button>
+                <button onclick="setEyeTheme('mint')" data-theme-btn="mint" title="Tema Mint" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-400 opacity-75 cursor-pointer transition-transform hover:scale-110"></button>
+            </div>
+
+            <button id="toggle-face-btn" title="Sembunyikan / Tampilkan Wajah" class="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-xl transition-all duration-200 flex items-center gap-1.5 text-sm cursor-pointer">
+                <i data-lucide="scan-face" class="w-4 h-4"></i>
+                <span class="hidden md:inline font-medium">Wajah</span>
+            </button>
+
+            <button id="clear-chat-btn" title="Reset Obrolan" class="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-xl transition-all duration-200 flex items-center gap-1.5 text-sm cursor-pointer">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                <span class="hidden sm:inline font-medium">Reset</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Layar Wajah Robot Digital Interaktif Gaya Eilik -->
+    <section id="eilik-face-section" class="bg-dark-surface/40 border-b border-slate-800/70 px-3 sm:px-4 py-3 shrink-0 transition-all duration-300">
+        <div class="max-w-2xl mx-auto flex flex-col items-center">
+            <!-- Visor Kaca Gelap Eilik -->
+            <div
+                id="eilik-head"
+                role="button"
+                tabindex="0"
+                title="Klik atau tap wajah robot untuk mengelus!"
+                class="relative w-full max-w-[340px] h-[126px] sm:h-[138px] rounded-[2.25rem] border-2 border-slate-700/80 eilik-visor flex items-center justify-center select-none cursor-pointer overflow-hidden active:scale-95 transition-all duration-200"
+            >
+                <!-- Efek Kilau Kaca -->
+                <div class="pointer-events-none absolute inset-0 eilik-glass-glare"></div>
+                <div class="pointer-events-none absolute top-2 left-8 right-8 h-3 rounded-full bg-white/[0.06]"></div>
+
+                <!-- Wadah Partikel Interaktif (Hati, Air Mata, Uap Marah, Zzz, Kaget, Jengkel, Mendung) -->
+                <div id="heart-particles" class="pointer-events-none absolute inset-0 overflow-hidden z-20"></div>
+                <div id="mood-particles" class="pointer-events-none absolute inset-0 overflow-hidden z-20"></div>
+
+                <!-- Badge Status Mood -->
+                <div id="eilik-mood-badge" class="absolute top-2.5 right-3.5 z-20 text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-900/85 text-slate-300 border border-slate-700/70">
+                    IDLE
+                </div>
+
+                <!-- Wadah Mata LED & Pipi Merona -->
+                <div id="eilik-eyes-container" class="relative z-10 flex items-center justify-center gap-9 sm:gap-11 transition-all duration-300">
+                    <!-- Pipi Kiri -->
+                    <div id="blush-left" class="led-blush w-7 h-4 rounded-full -mr-4 mt-7 opacity-75"></div>
+
+                    <!-- Mata Kiri -->
+                    <div id="eye-left" class="led-eye w-11 h-14 sm:w-12 sm:h-16 rounded-[1.25rem] anim-blink relative overflow-hidden">
+                        <div id="eyelid-left" class="eyelid-top absolute -top-10 -left-3 -right-3 h-10 pointer-events-none"></div>
+                        <span class="eye-highlight absolute top-2 left-2.5 w-2.5 h-2.5 rounded-full bg-white/80 transition-opacity duration-200"></span>
+                    </div>
+
+                    <!-- Mata Kanan -->
+                    <div id="eye-right" class="led-eye w-11 h-14 sm:w-12 sm:h-16 rounded-[1.25rem] anim-blink relative overflow-hidden">
+                        <div id="eyelid-right" class="eyelid-top absolute -top-10 -left-3 -right-3 h-10 pointer-events-none"></div>
+                        <span class="eye-highlight absolute top-2 left-2.5 w-2.5 h-2.5 rounded-full bg-white/80 transition-opacity duration-200"></span>
+                    </div>
+
+                    <!-- Pipi Kanan -->
+                    <div id="blush-right" class="led-blush w-7 h-4 rounded-full -ml-4 mt-7 opacity-75"></div>
+                </div>
+
+                <!-- Mulut LED Kecil di Bawah Tengah -->
+                <div id="eilik-mouth" class="led-mouth absolute bottom-3.5 z-10 w-5 h-1.5 rounded-full opacity-55"></div>
+            </div>
+
+            <!-- Panel 8 Tombol Ekspresi Animasi + Mode Otomatis -->
+            <div class="w-full max-w-2xl mt-2.5 flex items-center justify-start sm:justify-center gap-1.5 overflow-x-auto pb-1 px-1 no-scrollbar">
+                <button onclick="triggerManualMood('idle')" data-mood-btn="idle" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-indigo-600/25 text-indigo-300 border border-indigo-500/50 hover:bg-indigo-600/35 transition-all shrink-0 cursor-pointer">
+                    ✨ Otomatis
+                </button>
+                <button onclick="triggerManualMood('sad')" data-mood-btn="sad" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-sky-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😢 Sedih
+                </button>
+                <button onclick="triggerManualMood('happy')" data-mood-btn="happy" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-pink-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😄 Senang
+                </button>
+                <button onclick="triggerManualMood('pout')" data-mood-btn="pout" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-amber-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    🥺 Cemberut
+                </button>
+                <button onclick="triggerManualMood('angry')" data-mood-btn="angry" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-red-500/60 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😡 Marah
+                </button>
+                <button onclick="triggerManualMood('surprised')" data-mood-btn="surprised" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-yellow-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😲 Kaget
+                </button>
+                <button onclick="triggerManualMood('annoyed')" data-mood-btn="annoyed" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-orange-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😒 Jengkel
+                </button>
+                <button onclick="triggerManualMood('sulking')" data-mood-btn="sulking" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-purple-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😤 Ngambek
+                </button>
+                <button onclick="triggerManualMood('sleeping')" data-mood-btn="sleeping" class="px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-cyan-400/50 hover:text-white transition-all shrink-0 cursor-pointer">
+                    😴 Tidur
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Area Utama Percakapan -->
+    <main id="chat-container" class="flex-1 overflow-y-auto px-4 py-6 sm:px-6 scroll-smooth">
+        <div id="messages-wrapper" class="max-w-3xl mx-auto flex flex-col gap-6">
+            
+            <!-- Layar Sapaan Awal (Welcome State) -->
+            <div id="welcome-screen" class="my-auto py-4 flex flex-col items-center text-center message-appear">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 border border-indigo-500/30 flex items-center justify-center mb-4 shadow-inner">
+                    <i data-lucide="bot" class="w-7 h-7 text-indigo-400"></i>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">Halo! Saya Seilik - AI Cerdas</h2>
+                <p class="text-slate-400 text-sm max-w-md mb-6">
+                    Tanyakan apa saja, mulai dari ide kreatif, bantuan pemrograman, terjemahan bahasa, hingga analisis informasi terkini.
+                </p>
+
+                <!-- Kartu Saran Prompt (Quick Prompts) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-2xl text-left">
+                    <button onclick="useSuggestion('Buatkan rencana liburan 3 hari di Yogyakarta beserta rekomendasi kulinernya.')" class="p-3.5 rounded-2xl bg-dark-surface/60 hover:bg-slate-800/80 border border-slate-800 hover:border-indigo-500/40 transition-all duration-200 group flex items-start gap-3 cursor-pointer">
+                        <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-slate-200 group-hover:text-white">Rencana Liburan</h3>
+                            <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">Itinerary 3 hari di Yogyakarta & kuliner</p>
+                        </div>
+                    </button>
+
+                    <button onclick="useSuggestion('Jelaskan konsep kecerdasan buatan (AI) dengan bahasa yang sederhana untuk pemula.')" class="p-3.5 rounded-2xl bg-dark-surface/60 hover:bg-slate-800/80 border border-slate-800 hover:border-indigo-500/40 transition-all duration-200 group flex items-start gap-3 cursor-pointer">
+                        <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-slate-200 group-hover:text-white">Belajar Konsep</h3>
+                            <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">Penjelasan AI sederhana untuk pemula</p>
+                        </div>
+                    </button>
+
+                    <button onclick="useSuggestion('Buatkan contoh fungsi JavaScript untuk memvalidasi format email dengan Regex.')" class="p-3.5 rounded-2xl bg-dark-surface/60 hover:bg-slate-800/80 border border-slate-800 hover:border-indigo-500/40 transition-all duration-200 group flex items-start gap-3 cursor-pointer">
+                        <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="code-2" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-slate-200 group-hover:text-white">Bantuan Kode</h3>
+                            <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">Validasi email JavaScript dengan Regex</p>
+                        </div>
+                    </button>
+
+                    <button onclick="useSuggestion('Berikan 5 tips produktivitas kerja saat bekerja dari rumah (WFH).')" class="p-3.5 rounded-2xl bg-dark-surface/60 hover:bg-slate-800/80 border border-slate-800 hover:border-indigo-500/40 transition-all duration-200 group flex items-start gap-3 cursor-pointer">
+                        <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="zap" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-slate-200 group-hover:text-white">Tips Produktivitas</h3>
+                            <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">Cara tetap fokus saat bekerja dari rumah</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Notifikasi Toast (Pengganti alert) -->
+    <div id="toast-notification" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-800 border border-slate-700 text-slate-200 px-4 py-2.5 rounded-full shadow-xl flex items-center gap-2 text-sm">
+            <i data-lucide="info" class="w-4 h-4 text-indigo-400"></i>
+            <span id="toast-message">Pesan notifikasi</span>
+        </div>
+    </div>
+
+    <!-- Area Input Pesan (Footer) -->
+    <footer class="bg-dark-bg/90 backdrop-blur-md border-t border-slate-800/80 p-3 sm:p-4 shrink-0">
+        <div class="max-w-3xl mx-auto">
+            <form id="chat-form" class="relative flex items-end gap-2 bg-dark-surface border border-slate-700/80 focus-within:border-indigo-500/70 focus-within:ring-2 focus-within:ring-indigo-500/20 rounded-2xl p-2 transition-all shadow-lg">
+                <!-- Textarea Auto-Resize -->
+                <textarea 
+                    id="user-input" 
+                    rows="1" 
+                    placeholder="Ketik pesan Anda di sini..." 
+                    class="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm sm:text-base px-3 py-2.5 max-h-36 resize-none focus:outline-none leading-relaxed"
+                    required
+                ></textarea>
+                
+                <!-- Tombol Kirim -->
+                <button 
+                    type="submit" 
+                    id="send-btn"
+                    class="p-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 text-white transition-all duration-200 shrink-0 flex items-center justify-center shadow-md shadow-indigo-600/20 disabled:shadow-none cursor-pointer disabled:cursor-not-allowed"
+                    title="Kirim Pesan (Enter)"
+                >
+                    <i data-lucide="send-horizontal" class="w-5 h-5"></i>
+                </button>
+            </form>
+            <div class="text-center mt-2">
+                <p class="text-[11px] text-slate-500">
+                    Tekan <kbd class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-400 rounded border border-slate-700">Enter</kbd> untuk mengirim, <kbd class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-400 rounded border border-slate-700">Shift + Enter</kbd> untuk baris baru.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logika Aplikasi JavaScript -->
+    <script>
+        // Inisialisasi ikon Lucide
+        lucide.createIcons();
+
+        // Konfigurasi API Gemini
+        const apiKey = "AQ.Ab8RN6KHZB3g1fED0cD4iZaE_DJAJDMPP-gYocaXquv-WaFN-Q";
+        const modelName = "gemini-3-flash-preview";
+        const baseEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}`;
+
+        // Batas konteks yang dikirim per request agar upload tidak membengkak
+        const MAX_CONTEXT_MESSAGES = 8;
+
+        // Instruksi sistem untuk memandu persona AI
+        const systemInstruction = {
+            parts: [{
+                text: "Anda adalah Seilik - AI Cerdas, asisten kecerdasan buatan yang ramah, ekspresif, cerdas, dan sangat membantu dengan tampilan wajah layar LED bergaya robot mini Eilik. Selalu jawab pertanyaan pengguna dalam bahasa Indonesia yang natural, sopan, dan mudah dipahami. Gunakan pemformatan Markdown (seperti poin-poin, teks tebal, atau blok kode) jika diperlukan agar jawaban terlihat rapi dan terstruktur."
+            }]
+        };
+
+        // Kunci Penyimpanan localStorage
+        const STORAGE_HISTORY_KEY = 'nusantara_ai_eilik_history_v1';
+        const STORAGE_THEME_KEY = 'nusantara_ai_eilik_theme_v1';
+        const STORAGE_STREAM_KEY = 'nusantara_ai_eilik_stream_v1';
+
+        // State aplikasi
+        let conversationHistory = [];
+        let isWaitingForResponse = false;
+        let useStreaming = true;
+        let currentMood = 'idle';
+        let currentEyeTheme = 'cyan';
+        let isManualMoodLocked = false;
+        let moodTimer = null;
+
+        // Referensi Elemen DOM
+        const chatContainer = document.getElementById('chat-container');
+        const messagesWrapper = document.getElementById('messages-wrapper');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearChatBtn = document.getElementById('clear-chat-btn');
+        const toggleFaceBtn = document.getElementById('toggle-face-btn');
+        const toggleStreamBtn = document.getElementById('toggle-stream-btn');
+        const streamModeLabel = document.getElementById('stream-mode-label');
+        const faceSection = document.getElementById('eilik-face-section');
+        const toastEl = document.getElementById('toast-notification');
+        const toastMsgEl = document.getElementById('toast-message');
+
+        // Referensi Elemen Wajah Eilik
+        const eilikHead = document.getElementById('eilik-head');
+        const eyesContainer = document.getElementById('eilik-eyes-container');
+        const eyeLeft = document.getElementById('eye-left');
+        const eyeRight = document.getElementById('eye-right');
+        const eyelidLeft = document.getElementById('eyelid-left');
+        const eyelidRight = document.getElementById('eyelid-right');
+        const eyeHighlights = document.querySelectorAll('.eye-highlight');
+        const blushLeft = document.getElementById('blush-left');
+        const blushRight = document.getElementById('blush-right');
+        const mouthEl = document.getElementById('eilik-mouth');
+        const moodBadge = document.getElementById('eilik-mood-badge');
+        const statusLabel = document.getElementById('status-label');
+        const heartParticles = document.getElementById('heart-particles');
+        const moodParticles = document.getElementById('mood-particles');
+
+        // Konfigurasi Marked.js
+        marked.setOptions({
+            breaks: true,
+            gfm: true
+        });
+
+        // Palet 4 Warna Tema Mata LED Eilik
+        const EYE_THEMES = {
+            cyan: {
+                eye: '#22d3ee',
+                glow: 'rgba(34, 211, 238, 0.65)',
+                blush: 'rgba(251, 113, 133, 0.42)'
+            },
+            sakura: {
+                eye: '#f472b6',
+                glow: 'rgba(244, 114, 182, 0.65)',
+                blush: 'rgba(253, 164, 175, 0.5)'
+            },
+            lavender: {
+                eye: '#a78bfa',
+                glow: 'rgba(167, 139, 250, 0.65)',
+                blush: 'rgba(244, 114, 182, 0.42)'
+            },
+            mint: {
+                eye: '#34d399',
+                glow: 'rgba(52, 211, 153, 0.65)',
+                blush: 'rgba(251, 113, 133, 0.38)'
+            }
+        };
+
+        function updateStreamButtonUI() {
+            if (useStreaming) {
+                streamModeLabel.textContent = 'Stream';
+                toggleStreamBtn.classList.add('text-cyan-300', 'border-cyan-500/40');
+                toggleStreamBtn.classList.remove('text-slate-400', 'border-slate-800');
+            } else {
+                streamModeLabel.textContent = 'Full';
+                toggleStreamBtn.classList.remove('text-cyan-300', 'border-cyan-500/40');
+                toggleStreamBtn.classList.add('text-slate-400', 'border-slate-800');
+            }
+        }
+
+        toggleStreamBtn.addEventListener('click', () => {
+            useStreaming = !useStreaming;
+            updateStreamButtonUI();
+            try {
+                localStorage.setItem(STORAGE_STREAM_KEY, JSON.stringify(useStreaming));
+            } catch (e) {}
+            showToast(useStreaming ? 'Mode Streaming aktif (balasan mengalir)' : 'Mode Full aktif (balasan muncul sekaligus)');
+        });
+
+        function applyEyeColorOverride(customEye = null, customGlow = null, customBlush = null) {
+            const base = EYE_THEMES[currentEyeTheme] || EYE_THEMES.cyan;
+            document.documentElement.style.setProperty('--eye-color', customEye || base.eye);
+            document.documentElement.style.setProperty('--eye-glow', customGlow || base.glow);
+            document.documentElement.style.setProperty('--blush-color', customBlush || base.blush);
+        }
+
+        window.setEyeTheme = function(themeName) {
+            currentEyeTheme = EYE_THEMES[themeName] ? themeName : 'cyan';
+            if (currentMood !== 'angry' && currentMood !== 'sad') {
+                applyEyeColorOverride();
+            }
+
+            document.querySelectorAll('[data-theme-btn]').forEach(btn => {
+                if (btn.dataset.themeBtn === currentEyeTheme) {
+                    btn.classList.add('ring-2', 'ring-white/85', 'opacity-100');
+                    btn.classList.remove('opacity-75');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-white/85', 'opacity-100');
+                    btn.classList.add('opacity-75');
+                }
+            });
+
+            try {
+                localStorage.setItem(STORAGE_THEME_KEY, currentEyeTheme);
+            } catch (e) {}
+        };
+
+        function updateMoodButtonsUI(activeKey) {
+            document.querySelectorAll('[data-mood-btn]').forEach(btn => {
+                const isSelected = btn.dataset.moodBtn === activeKey;
+                if (isSelected) {
+                    btn.className = 'px-2.5 py-1 rounded-xl text-xs font-medium bg-indigo-600/30 text-white border border-indigo-400/70 shadow-sm transition-all shrink-0 cursor-pointer';
+                } else {
+                    btn.className = 'px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/80 hover:border-slate-500 hover:text-white transition-all shrink-0 cursor-pointer';
+                }
+            });
+        }
+
+        function renderMoodParticles(mood) {
+            moodParticles.innerHTML = '';
+
+            if (mood === 'sad') {
+                const tears = [
+                    { left: '33%', delay: '0s' },
+                    { left: '64%', delay: '0.55s' }
+                ];
+                tears.forEach(t => {
+                    const drop = document.createElement('span');
+                    drop.textContent = '💧';
+                    drop.className = 'tear-particle absolute text-xs';
+                    drop.style.left = t.left;
+                    drop.style.top = '66px';
+                    drop.style.animationDelay = t.delay;
+                    moodParticles.appendChild(drop);
+                });
+            } else if (mood === 'happy') {
+                const icons = ['♥', '✨', '♥', '♥'];
+                icons.forEach((icon, i) => {
+                    const heart = document.createElement('span');
+                    heart.textContent = icon;
+                    heart.className = 'heart-particle absolute text-pink-400 text-sm font-bold';
+                    heart.style.left = `${20 + i * 18}%`;
+                    heart.style.bottom = '16px';
+                    heart.style.animationDelay = `${i * 0.14}s`;
+                    moodParticles.appendChild(heart);
+                });
+            } else if (mood === 'angry') {
+                const steams = [
+                    { left: '24%', icon: '🔥', delay: '0s' },
+                    { left: '72%', icon: '💢', delay: '0.35s' }
+                ];
+                steams.forEach(s => {
+                    const el = document.createElement('span');
+                    el.textContent = s.icon;
+                    el.className = 'steam-particle absolute text-sm';
+                    el.style.left = s.left;
+                    el.style.top = '28px';
+                    el.style.animationDelay = s.delay;
+                    moodParticles.appendChild(el);
+                });
+            } else if (mood === 'surprised') {
+                const bang = document.createElement('span');
+                bang.textContent = '❗';
+                bang.className = 'anim-surprise-pop absolute left-6 top-3 text-base font-bold';
+                moodParticles.appendChild(bang);
+            } else if (mood === 'annoyed') {
+                const vein = document.createElement('span');
+                vein.textContent = '💢';
+                vein.className = 'animate-pulse absolute left-7 top-3.5 text-sm';
+                moodParticles.appendChild(vein);
+            } else if (mood === 'sulking') {
+                const cloud = document.createElement('span');
+                cloud.textContent = '☁️';
+                cloud.className = 'cloud-particle absolute left-6 top-3 text-base opacity-90';
+                moodParticles.appendChild(cloud);
+            } else if (mood === 'sleeping') {
+                const zzzList = [
+                    { text: 'z', left: '66%', top: '46px', delay: '0s', size: 'text-xs' },
+                    { text: 'Z', left: '72%', top: '34px', delay: '0.7s', size: 'text-sm' },
+                    { text: 'Z', left: '78%', top: '22px', delay: '1.4s', size: 'text-base' }
+                ];
+                zzzList.forEach(z => {
+                    const el = document.createElement('span');
+                    el.textContent = z.text;
+                    el.className = `zzz-particle absolute font-mono font-bold text-cyan-200/85 ${z.size}`;
+                    el.style.left = z.left;
+                    el.style.top = z.top;
+                    el.style.animationDelay = z.delay;
+                    moodParticles.appendChild(el);
+                });
+            }
+        }
+
+        window.triggerManualMood = function(mood) {
+            clearTimeout(moodTimer);
+            if (mood === 'idle') {
+                isManualMoodLocked = false;
+                updateMoodButtonsUI('idle');
+                setEilikMood('idle');
+                return;
+            }
+            isManualMoodLocked = true;
+            updateMoodButtonsUI(mood);
+            setEilikMood(mood);
+        };
+
+        function setEilikMood(mood, autoResetMs = 0) {
+            currentMood = mood;
+            clearTimeout(moodTimer);
+            applyEyeColorOverride();
+            renderMoodParticles(mood);
+
+            eilikHead.classList.remove('anim-angry-shake');
+            eilikHead.style.borderColor = '';
+            eyesContainer.classList.remove('anim-sleep-breathe', 'anim-happy-bounce');
+            eyesContainer.style.transform = 'translate(0px, 0px) rotate(0deg)';
+            eyesContainer.style.opacity = '1';
+
+            [eyeLeft, eyeRight].forEach(eye => {
+                eye.classList.remove('anim-blink', 'anim-think', 'anim-talk', 'anim-surprise-pop');
+                eye.style.width = '';
+                eye.style.height = '';
+                eye.style.borderRadius = '1.25rem';
+                eye.style.transform = '';
+                eye.style.opacity = '1';
+                eye.style.backgroundColor = '';
+                eye.style.borderTop = '';
+                eye.style.borderBottom = '';
+            });
+            [eyelidLeft, eyelidRight].forEach(lid => {
+                lid.style.transform = 'translateY(0px) rotate(0deg)';
+            });
+            eyeHighlights.forEach(h => h.style.opacity = '0.85');
+
+            mouthEl.classList.remove('anim-mouth-talk');
+            mouthEl.style.width = '1.25rem';
+            mouthEl.style.height = '0.375rem';
+            mouthEl.style.borderRadius = '9999px';
+            mouthEl.style.opacity = '0.55';
+            mouthEl.style.transform = 'translateX(0px)';
+            mouthEl.style.border = 'none';
+            mouthEl.style.backgroundColor = 'var(--eye-color)';
+
+            blushLeft.style.opacity = '0.7';
+            blushRight.style.opacity = '0.7';
+            blushLeft.style.transform = 'scale(1)';
+            blushRight.style.transform = 'scale(1)';
+
+            if (mood === 'sad') {
+                applyEyeColorOverride('#60a5fa', 'rgba(96, 165, 250, 0.55)', 'rgba(96, 165, 250, 0.3)');
+                eyesContainer.style.transform = 'translateY(6px)';
+                eyeLeft.style.height = '2.4rem';
+                eyeRight.style.height = '2.4rem';
+                eyeLeft.style.borderRadius = '1.4rem 0.6rem 1.25rem 1.25rem';
+                eyeRight.style.borderRadius = '0.6rem 1.4rem 1.25rem 1.25rem';
+                eyeLeft.style.transform = 'rotate(-12deg)';
+                eyeRight.style.transform = 'rotate(12deg)';
+                eyelidLeft.style.transform = 'translateY(14px) rotate(-14deg)';
+                eyelidRight.style.transform = 'translateY(14px) rotate(14deg)';
+                mouthEl.style.width = '1.45rem';
+                mouthEl.style.height = '0.55rem';
+                mouthEl.style.borderRadius = '9999px 9999px 0.25rem 0.25rem';
+                mouthEl.style.opacity = '0.85';
+                moodBadge.textContent = 'SEDIH';
+                statusLabel.textContent = 'Lagi merasa sedih...';
+            } else if (mood === 'happy') {
+                eyesContainer.classList.add('anim-happy-bounce');
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.height = '1.35rem';
+                    eye.style.borderRadius = '9999px 9999px 0.35rem 0.35rem';
+                    eye.style.transform = 'translateY(-2px)';
+                });
+                eyeHighlights.forEach(h => h.style.opacity = '0.2');
+                mouthEl.style.width = '1.75rem';
+                mouthEl.style.height = '0.7rem';
+                mouthEl.style.borderRadius = '0.35rem 0.35rem 9999px 9999px';
+                mouthEl.style.opacity = '0.95';
+                blushLeft.style.opacity = '1';
+                blushRight.style.opacity = '1';
+                blushLeft.style.transform = 'scale(1.2)';
+                blushRight.style.transform = 'scale(1.2)';
+                moodBadge.textContent = 'SENANG ♥';
+                statusLabel.textContent = 'Senang banget!';
+            } else if (mood === 'pout') {
+                eyesContainer.style.transform = 'translateY(4px) rotate(-4deg)';
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.width = '2.65rem';
+                    eye.style.height = '2.45rem';
+                    eye.style.borderRadius = '1.5rem 1.5rem 1rem 1rem';
+                });
+                eyelidLeft.style.transform = 'translateY(12px) rotate(-6deg)';
+                eyelidRight.style.transform = 'translateY(12px) rotate(6deg)';
+                blushLeft.style.opacity = '1';
+                blushRight.style.opacity = '1';
+                blushLeft.style.transform = 'scale(1.3)';
+                blushRight.style.transform = 'scale(1.3)';
+                mouthEl.style.width = '0.65rem';
+                mouthEl.style.height = '0.65rem';
+                mouthEl.style.borderRadius = '9999px';
+                mouthEl.style.opacity = '0.95';
+                moodBadge.textContent = 'CEMBERUT';
+                statusLabel.textContent = 'Hmm... cemberut nih';
+            } else if (mood === 'angry') {
+                applyEyeColorOverride('#ef4444', 'rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.45)');
+                eilikHead.classList.add('anim-angry-shake');
+                eilikHead.style.borderColor = 'rgba(239, 68, 68, 0.7)';
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.height = '2.6rem';
+                    eye.style.borderRadius = '0.6rem 0.6rem 1.25rem 1.25rem';
+                });
+                eyelidLeft.style.transform = 'translateY(18px) rotate(18deg)';
+                eyelidRight.style.transform = 'translateY(18px) rotate(-18deg)';
+                mouthEl.style.width = '1.65rem';
+                mouthEl.style.height = '0.45rem';
+                mouthEl.style.borderRadius = '9999px 9999px 0.2rem 0.2rem';
+                mouthEl.style.opacity = '0.95';
+                moodBadge.textContent = 'MARAH!';
+                statusLabel.textContent = 'Grrr!! Lagi marah!';
+            } else if (mood === 'surprised') {
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.classList.add('anim-surprise-pop');
+                    eye.style.width = '3.15rem';
+                    eye.style.height = '3.35rem';
+                    eye.style.borderRadius = '9999px';
+                });
+                mouthEl.style.width = '1.05rem';
+                mouthEl.style.height = '1.05rem';
+                mouthEl.style.borderRadius = '9999px';
+                mouthEl.style.opacity = '0.95';
+                moodBadge.textContent = 'KAGET!';
+                statusLabel.textContent = 'Hah?! Kaget banget!';
+            } else if (mood === 'annoyed') {
+                eyesContainer.style.transform = 'translate(8px, 1px)';
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.height = '2.35rem';
+                    eye.style.borderRadius = '0.35rem 0.35rem 1.15rem 1.15rem';
+                });
+                eyelidLeft.style.transform = 'translateY(16px)';
+                eyelidRight.style.transform = 'translateY(16px)';
+                mouthEl.style.width = '1.6rem';
+                mouthEl.style.height = '0.25rem';
+                mouthEl.style.borderRadius = '2px';
+                mouthEl.style.opacity = '0.85';
+                moodBadge.textContent = 'JENGKEL';
+                statusLabel.textContent = 'Hadeh... jengkel deh';
+            } else if (mood === 'sulking') {
+                eyesContainer.style.transform = 'translate(-22px, 10px) rotate(-5deg)';
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.width = '2.45rem';
+                    eye.style.height = '2.1rem';
+                    eye.style.borderRadius = '0.5rem 0.5rem 1.15rem 1.15rem';
+                });
+                eyelidLeft.style.transform = 'translateY(14px) rotate(8deg)';
+                eyelidRight.style.transform = 'translateY(14px) rotate(-6deg)';
+                mouthEl.style.width = '0.9rem';
+                mouthEl.style.height = '0.35rem';
+                mouthEl.style.transform = 'translateX(-16px)';
+                mouthEl.style.opacity = '0.85';
+                moodBadge.textContent = 'NGAMBEK';
+                statusLabel.textContent = 'Hmph! Lagi ngambek buang muka';
+            } else if (mood === 'sleeping') {
+                eyesContainer.classList.add('anim-sleep-breathe');
+                eyesContainer.style.opacity = '0.68';
+                eyeHighlights.forEach(h => h.style.opacity = '0');
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.width = '2.75rem';
+                    eye.style.height = '0.45rem';
+                    eye.style.borderRadius = '9999px';
+                    eye.style.transform = 'translateY(6px)';
+                });
+                blushLeft.style.opacity = '0.45';
+                blushRight.style.opacity = '0.45';
+                mouthEl.style.width = '0.55rem';
+                mouthEl.style.height = '0.55rem';
+                mouthEl.style.opacity = '0.55';
+                moodBadge.textContent = 'TIDUR Zzz';
+                statusLabel.textContent = 'Zzz... sedang tidur pulas';
+            } else if (mood === 'listening') {
+                eyesContainer.style.transform = 'translateY(7px)';
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.style.height = '3.2rem';
+                });
+                mouthEl.style.width = '0.65rem';
+                mouthEl.style.height = '0.65rem';
+                mouthEl.style.opacity = '0.85';
+                blushLeft.style.opacity = '0.9';
+                blushRight.style.opacity = '0.9';
+                moodBadge.textContent = 'LISTENING';
+                statusLabel.textContent = 'Memperhatikan ketikanmu...';
+            } else if (mood === 'thinking') {
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.classList.add('anim-think');
+                    eye.style.width = '2.55rem';
+                    eye.style.height = '2.55rem';
+                    eye.style.borderRadius = '9999px';
+                });
+                eyesContainer.style.transform = 'translate(5px, -4px)';
+                mouthEl.style.width = '0.75rem';
+                mouthEl.style.height = '0.75rem';
+                mouthEl.style.opacity = '0.8';
+                moodBadge.textContent = 'THINKING';
+                statusLabel.textContent = 'Sedang berpikir...';
+            } else if (mood === 'speaking') {
+                [eyeLeft, eyeRight].forEach(eye => {
+                    eye.classList.add('anim-talk');
+                    eye.style.height = '1.85rem';
+                    eye.style.borderRadius = '9999px 9999px 0.45rem 0.45rem';
+                });
+                eyeHighlights.forEach(h => h.style.opacity = '0.25');
+                mouthEl.classList.add('anim-mouth-talk');
+                mouthEl.style.width = '1.65rem';
+                mouthEl.style.height = '0.55rem';
+                mouthEl.style.opacity = '0.95';
+                blushLeft.style.opacity = '1';
+                blushRight.style.opacity = '1';
+                moodBadge.textContent = 'SPEAKING';
+                statusLabel.textContent = 'Sedang membalas pesanmu...';
+            } else {
+                [eyeLeft, eyeRight].forEach(eye => eye.classList.add('anim-blink'));
+                moodBadge.textContent = 'IDLE';
+                statusLabel.textContent = 'Siap menemani obrolanmu';
+            }
+
+            if (autoResetMs > 0) {
+                moodTimer = setTimeout(() => {
+                    if (!isWaitingForResponse && !isManualMoodLocked) {
+                        setEilikMood('idle');
+                    }
+                }, autoResetMs);
+            }
+        }
+
+        function patEilikHead() {
+            const icons = ['♥', '✦', '♥', '♥', '✨'];
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('span');
+                particle.textContent = icons[i % icons.length];
+                particle.className = 'heart-particle absolute text-pink-400 text-base font-bold';
+                particle.style.left = `${20 + Math.random() * 60}%`;
+                particle.style.bottom = '18px';
+                particle.style.animationDelay = `${i * 0.09}s`;
+                heartParticles.appendChild(particle);
+                setTimeout(() => particle.remove(), 1200);
+            }
+
+            if (!isWaitingForResponse) {
+                isManualMoodLocked = false;
+                updateMoodButtonsUI('happy');
+                setEilikMood('happy', 1800);
+                setTimeout(() => {
+                    if (!isManualMoodLocked && currentMood === 'idle') {
+                        updateMoodButtonsUI('idle');
+                    }
+                }, 1850);
+            }
+        }
+
+        eilikHead.addEventListener('click', patEilikHead);
+        eilikHead.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                patEilikHead();
+            }
+        });
+
+        toggleFaceBtn.addEventListener('click', () => {
+            faceSection.classList.toggle('hidden');
+        });
+
+        setInterval(() => {
+            if (currentMood === 'idle' && !isWaitingForResponse && !isManualMoodLocked) {
+                const lookPositions = [
+                    'translate(0px, 0px)',
+                    'translate(-7px, -2px)',
+                    'translate(7px, -2px)',
+                    'translate(0px, 3px)',
+                    'translate(-4px, 2px)'
+                ];
+                const pick = lookPositions[Math.floor(Math.random() * lookPositions.length)];
+                eyesContainer.style.transform = pick;
+                setTimeout(() => {
+                    if (currentMood === 'idle' && !isManualMoodLocked) {
+                        eyesContainer.style.transform = 'translate(0px, 0px)';
+                    }
+                }, 950);
+            }
+        }, 3500);
+
+        function showToast(message) {
+            toastMsgEl.textContent = message;
+            toastEl.classList.remove('opacity-0');
+            setTimeout(() => {
+                toastEl.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        function autoResizeTextarea() {
+            userInput.style.height = 'auto';
+            userInput.style.height = Math.min(userInput.scrollHeight, 144) + 'px';
+        }
+
+        userInput.addEventListener('input', () => {
+            autoResizeTextarea();
+            if (!isWaitingForResponse && !isManualMoodLocked) {
+                if (userInput.value.trim().length > 0) {
+                    setEilikMood('listening');
+                } else if (currentMood === 'listening') {
+                    setEilikMood('idle');
+                }
+            }
+        });
+
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!isWaitingForResponse && userInput.value.trim() !== '') {
+                    chatForm.dispatchEvent(new Event('submit'));
+                }
+            }
+        });
+
+        window.useSuggestion = function(text) {
+            userInput.value = text;
+            autoResizeTextarea();
+            userInput.focus();
+            chatForm.dispatchEvent(new Event('submit'));
+        };
+
+        function scrollToBottom() {
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        window.copyMessageText = function(btnElement, encodedText) {
+            const text = decodeURIComponent(encodedText);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const icon = btnElement.querySelector('i');
+                    icon.setAttribute('data-lucide', 'check');
+                    lucide.createIcons();
+                    showToast('Teks berhasil disalin!');
+                    setTimeout(() => {
+                        icon.setAttribute('data-lucide', 'copy');
+                        lucide.createIcons();
+                    }, 2000);
+                }).catch(() => {
+                    showToast('Gagal menyalin teks.');
+                });
+                return;
+            }
+
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = text;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                const icon = btnElement.querySelector('i');
+                icon.setAttribute('data-lucide', 'check');
+                lucide.createIcons();
+                showToast('Teks berhasil disalin!');
+                setTimeout(() => {
+                    icon.setAttribute('data-lucide', 'copy');
+                    lucide.createIcons();
+                }, 2000);
+            } catch (err) {
+                showToast('Gagal menyalin teks.');
+            }
+            document.body.removeChild(tempTextArea);
+        };
+
+        function formatAiMarkdown(content) {
+            const rawHtml = marked.parse(content || '');
+            return DOMPurify.sanitize(rawHtml);
+        }
+
+        function createStreamingAiBubble() {
+            if (welcomeScreen && !welcomeScreen.classList.contains('hidden')) {
+                welcomeScreen.classList.add('hidden');
+            }
+
+            const timeString = getCurrentTime();
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex w-full justify-start message-appear';
+            messageDiv.innerHTML = `
+                <div class="flex items-start gap-3 max-w-[92%] sm:max-w-[82%]">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shrink-0 mt-0.5 shadow-md">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div class="flex flex-col items-start flex-1 min-w-0">
+                        <div class="ai-bubble-content bg-dark-surface border border-slate-800 text-slate-200 px-4 py-3.5 rounded-2xl rounded-tl-sm shadow-md text-sm sm:text-base prose-ai w-full overflow-hidden break-words"></div>
+                        <div class="ai-bubble-footer flex items-center gap-3 mt-1.5 px-1 hidden">
+                            <span class="text-[11px] text-slate-500">${timeString}</span>
+                            <button class="copy-ai-btn text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-1 text-[11px] cursor-pointer" title="Salin jawaban">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                                <span>Salin</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            messagesWrapper.appendChild(messageDiv);
+            lucide.createIcons();
+
+            const contentEl = messageDiv.querySelector('.ai-bubble-content');
+            const footerEl = messageDiv.querySelector('.ai-bubble-footer');
+            const copyBtn = messageDiv.querySelector('.copy-ai-btn');
+
+            return {
+                update(fullText) {
+                    contentEl.innerHTML = formatAiMarkdown(fullText);
+                    scrollToBottom();
+                },
+                finalize(finalText) {
+                    contentEl.innerHTML = formatAiMarkdown(finalText);
+                    footerEl.classList.remove('hidden');
+                    copyBtn.addEventListener('click', () => {
+                        copyMessageText(copyBtn, encodeURIComponent(finalText));
+                    });
+                    lucide.createIcons();
+                    scrollToBottom();
+                },
+                remove() {
+                    messageDiv.remove();
+                }
+            };
+        }
+
+        function appendMessage(role, content, isError = false) {
+            if (welcomeScreen && !welcomeScreen.classList.contains('hidden')) {
+                welcomeScreen.classList.add('hidden');
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex w-full message-appear ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+
+            const timeString = getCurrentTime();
+
+            if (role === 'user') {
+                const escapedContent = content
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/\n/g, "<br>");
+
+                messageDiv.innerHTML = `
+                    <div class="flex flex-col items-end max-w-[85%] sm:max-w-[75%]">
+                        <div class="bg-gradient-to-br from-indigo-600 to-blue-600 text-white px-4 py-3 rounded-2xl rounded-tr-sm shadow-md shadow-indigo-950/30 text-sm sm:text-base leading-relaxed break-words">
+                            ${escapedContent}
+                        </div>
+                        <span class="text-[11px] text-slate-500 mt-1.5 px-1">${timeString}</span>
+                    </div>
+                `;
+            } else {
+                const cleanHtml = formatAiMarkdown(content);
+                const encodedRawText = encodeURIComponent(content);
+
+                const bubbleStyle = isError 
+                    ? 'bg-red-950/40 border border-red-800/60 text-red-200' 
+                    : 'bg-dark-surface border border-slate-800 text-slate-200';
+
+                messageDiv.innerHTML = `
+                    <div class="flex items-start gap-3 max-w-[92%] sm:max-w-[82%]">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shrink-0 mt-0.5 shadow-md">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="flex flex-col items-start flex-1 min-w-0">
+                            <div class="${bubbleStyle} px-4 py-3.5 rounded-2xl rounded-tl-sm shadow-md text-sm sm:text-base prose-ai w-full overflow-hidden break-words">
+                                ${cleanHtml}
+                            </div>
+                            <div class="flex items-center gap-3 mt-1.5 px-1">
+                                <span class="text-[11px] text-slate-500">${timeString}</span>
+                                ${!isError ? `
+                                <button onclick="copyMessageText(this, '${encodedRawText}')" class="text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-1 text-[11px] cursor-pointer" title="Salin jawaban">
+                                    <i data-lucide="copy" class="w-3 h-3"></i>
+                                    <span>Salin</span>
+                                </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            messagesWrapper.appendChild(messageDiv);
+            lucide.createIcons();
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            if (document.getElementById('typing-indicator')) return;
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex w-full justify-start message-appear';
+            typingDiv.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shrink-0 mt-0.5 shadow-md">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div class="bg-dark-surface border border-slate-800 px-4 py-3.5 rounded-2xl rounded-tl-sm shadow-md flex items-center gap-1.5 h-[46px]">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 typing-dot"></span>
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 typing-dot"></span>
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 typing-dot"></span>
+                    </div>
+                </div>
+            `;
+            messagesWrapper.appendChild(typingDiv);
+            lucide.createIcons();
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const typingEl = document.getElementById('typing-indicator');
+            if (typingEl) {
+                typingEl.remove();
+            }
+        }
+
+        function saveHistory() {
+            try {
+                localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(conversationHistory));
+            } catch (e) {}
+        }
+
+        function restoreSavedSession() {
+            try {
+                const savedTheme = localStorage.getItem(STORAGE_THEME_KEY);
+                if (savedTheme && EYE_THEMES[savedTheme]) {
+                    setEyeTheme(savedTheme);
+                }
+
+                const savedStream = localStorage.getItem(STORAGE_STREAM_KEY);
+                if (savedStream !== null) {
+                    useStreaming = JSON.parse(savedStream);
+                }
+                updateStreamButtonUI();
+
+                const savedHistory = localStorage.getItem(STORAGE_HISTORY_KEY);
+                if (savedHistory) {
+                    const parsed = JSON.parse(savedHistory);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        conversationHistory = parsed;
+                        parsed.forEach(item => {
+                            const role = item.role === 'user' ? 'user' : 'ai';
+                            const text = item.parts?.[0]?.text || '';
+                            if (text) {
+                                appendMessage(role, text);
+                            }
+                        });
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function buildRequestPayload(historyPayload) {
+            // Kirim hanya beberapa pesan terakhir agar upload ringan
+            const trimmedHistory = historyPayload.slice(-MAX_CONTEXT_MESSAGES);
+            return {
+                contents: trimmedHistory,
+                systemInstruction: systemInstruction,
+                generationConfig: {
+                    temperature: 0.7,
+                    topP: 0.95,
+                    maxOutputTokens: 2048,
+                }
+            };
+        }
+
+        async function fetchWithShortRetry(url, payload) {
+            // Cukup 1x retry singkat agar tidak menggantung lama di jaringan lemah
+            const maxRetries = 1;
+            const retryDelayMs = 800;
+
+            for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    return response;
+                }
+
+                // Jangan retry untuk error autentikasi / input / kuota
+                if ([400, 401, 403, 404, 429].includes(response.status)) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                if (attempt < maxRetries && response.status >= 500) {
+                    await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+                    continue;
+                }
+
+                throw new Error(`HTTP ${response.status}`);
+            }
+        }
+
+        async function fetchGeminiFull(historyPayload) {
+            const url = `${baseEndpoint}:generateContent?key=${encodeURIComponent(apiKey)}`;
+            const payload = buildRequestPayload(historyPayload);
+            const response = await fetchWithShortRetry(url, payload);
+            const result = await response.json();
+            const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (!responseText) {
+                throw new Error("Respons kosong dari model.");
+            }
+            return responseText;
+        }
+
+        async function fetchGeminiStream(historyPayload, onChunk) {
+            const url = `${baseEndpoint}:streamGenerateContent?alt=sse&key=${encodeURIComponent(apiKey)}`;
+            const payload = buildRequestPayload(historyPayload);
+            const response = await fetchWithShortRetry(url, payload);
+
+            if (!response.body) {
+                return await fetchGeminiFull(historyPayload);
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let buffer = '';
+            let fullText = '';
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+
+                for (const line of lines) {
+                    const trimmed = line.trim();
+                    if (!trimmed.startsWith('data:')) continue;
+                    const jsonStr = trimmed.slice(5).trim();
+                    if (!jsonStr || jsonStr === '[DONE]') continue;
+
+                    try {
+                        const parsed = JSON.parse(jsonStr);
+                        const parts = parsed.candidates?.[0]?.content?.parts || [];
+                        for (const p of parts) {
+                            if (typeof p.text === 'string' && p.text.length > 0) {
+                                fullText += p.text;
+                                onChunk(fullText);
+                            }
+                        }
+                    } catch (e) {
+                        // Abaikan potongan JSON SSE yang belum lengkap
+                    }
+                }
+            }
+
+            if (!fullText) {
+                return await fetchGeminiFull(historyPayload);
+            }
+
+            return fullText;
+        }
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const messageText = userInput.value.trim();
+            if (!messageText || isWaitingForResponse) return;
+
+            userInput.value = '';
+            userInput.style.height = 'auto';
+            isWaitingForResponse = true;
+            sendBtn.disabled = true;
+
+            appendMessage('user', messageText);
+
+            conversationHistory.push({
+                role: 'user',
+                parts: [{ text: messageText }]
+            });
+            saveHistory();
+
+            isManualMoodLocked = false;
+            updateMoodButtonsUI('idle');
+            showTypingIndicator();
+            setEilikMood('thinking');
+
+            let streamBubble = null;
+
+            try {
+                let aiResponseText = '';
+
+                if (useStreaming) {
+                    let hasStartedChunk = false;
+                    aiResponseText = await fetchGeminiStream(conversationHistory, (partialText) => {
+                        if (!hasStartedChunk) {
+                            hasStartedChunk = true;
+                            removeTypingIndicator();
+                            streamBubble = createStreamingAiBubble();
+                            setEilikMood('speaking');
+                        }
+                        streamBubble.update(partialText);
+                    });
+
+                    removeTypingIndicator();
+                    if (!streamBubble) {
+                        streamBubble = createStreamingAiBubble();
+                    }
+                    streamBubble.finalize(aiResponseText);
+                } else {
+                    aiResponseText = await fetchGeminiFull(conversationHistory);
+                    removeTypingIndicator();
+                    appendMessage('ai', aiResponseText);
+                }
+
+                setEilikMood('speaking', 3000);
+
+                conversationHistory.push({
+                    role: 'model',
+                    parts: [{ text: aiResponseText }]
+                });
+                saveHistory();
+
+            } catch (error) {
+                removeTypingIndicator();
+                if (streamBubble) {
+                    streamBubble.remove();
+                }
+                conversationHistory.pop();
+                saveHistory();
+                setEilikMood('sad', 2500);
+
+                const detail = error && error.message ? ` (${error.message})` : '';
+                appendMessage(
+                    'ai', 
+                    `Maaf, terjadi gangguan koneksi atau respons API${detail}. Silakan periksa koneksi internet atau API Key Anda lalu coba kirim ulang.`, 
+                    true
+                );
+            } finally {
+                isWaitingForResponse = false;
+                sendBtn.disabled = false;
+                userInput.focus();
+            }
+        });
+
+        clearChatBtn.addEventListener('click', () => {
+            if (conversationHistory.length === 0 && !welcomeScreen.classList.contains('hidden')) {
+                showToast('Percakapan sudah bersih.');
+                return;
+            }
+
+            conversationHistory = [];
+            saveHistory();
+            isWaitingForResponse = false;
+            isManualMoodLocked = false;
+            sendBtn.disabled = false;
+            updateMoodButtonsUI('idle');
+            setEilikMood('idle');
+
+            Array.from(messagesWrapper.children).forEach(child => {
+                if (child.id !== 'welcome-screen') {
+                    child.remove();
+                }
+            });
+
+            welcomeScreen.classList.remove('hidden');
+            showToast('Riwayat obrolan telah dihapus.');
+        });
+
+        restoreSavedSession();
+    </script>
+</body>
+</html>
